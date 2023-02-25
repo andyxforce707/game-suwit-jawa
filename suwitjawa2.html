@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: cursive;
+      }
+
+      body {
+        padding: 15px 30px;
+        background-image: linear-gradient(to right, darkred, red);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      h2 {
+        color: rgb(194, 166, 94);
+        font-size: 32px;
+      }
+      span {
+        color: white;
+        font-weight: bold;
+      }
+
+      span a {
+        text-decoration: none;
+        color: rgb(223, 208, 124);
+        font-style: italic;
+      }
+      h4:nth-child(3) {
+        color: rgb(240, 238, 227);
+        font-size: 25px;
+        border-top: 1px solid gold;
+        padding-top: 15px;
+      }
+
+      h4:nth-child(7) {
+        color: white;
+        font-size: 25px;
+        margin-top: 20px;
+      }
+
+      input {
+        width: 100px;
+        border: none;
+        background-image: linear-gradient(to right, rgb(233, 213, 98), rgb(185, 175, 113));
+        padding: 8px;
+        border-radius: 18px;
+        margin-top: 10px;
+        box-shadow: 5px 5px 15px rgba(1, 1, 1, 0.35), -5px -5px 15px rgba(255, 255, 255, 0.35);
+        border: 1px solid rgb(182, 168, 87);
+        transition: 0.4s;
+        color: black;
+      }
+
+      input:hover {
+        border: 1px solid white;
+        color: red;
+        transform: scale(1.05);
+      }
+
+      #catatanHasil,
+      #hasil {
+        color: white;
+      }
+
+      #hasil {
+        color: rgb(204, 130, 130);
+        font-size: 30px;
+      }
+      /* screen breakpoint */
+      @media screen and (max-width: 576px) {
+        #hasil {
+          color: rgb(204, 130, 130);
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body onload="setTime()">
+    <h2>Suwit Jawa: Old Games (2023)</h2>
+    <span>A game by | <a href="https://www.instagram.com/andyxforce/">@andyxforce</a></span>
+    <h4>Silahkan Pilih Jari :</h4>
+    <input type="button" value="kelingking" />
+    <input type="button" value="telunjuk" />
+    <input type="button" value="jempol" />
+
+    <h4>Hasil :</h4>
+    <p id="catatanHasil"></p>
+    <h3 id="hasil">" KAMU BELUM MEMILIH "</h3>
+    <span id="time"></span>
+    <script>
+      const input = document.querySelectorAll('input');
+      const hasil = document.getElementById('hasil');
+      const catatanHasil = document.getElementById('catatanHasil');
+
+      function cl(teks) {
+        console.log(teks);
+      }
+      function a(teks) {
+        alert(teks);
+      }
+      function p(teks) {
+        prompt(teks);
+      }
+
+      // tentukan pilihan player
+      let player = '';
+      for (let i = 0; i < input.length; i++) {
+        input[i].addEventListener('click', () => {
+          cl(input[i].value + ' dipencet!');
+          cl(input[i].value);
+          player = input[i].value;
+          // tentukan pilihan computer
+          // bangkitkan bilangan random
+
+          let computer = Math.random();
+          if (computer < 0.34) {
+            computer = input[0].value;
+          } else if (computer >= 0.34 && computer <= 0.65) {
+            computer = input[1].value;
+          } else if (computer > 0.65) {
+            computer = input[2].value;
+          }
+          cl(computer);
+
+          // setting rules
+          hasil.innerHTML = '';
+          if (player == computer) {
+            hasil.innerHTML = 'SERI';
+          } else if (player == input[0].value) {
+            hasil.innerHTML = computer == input[1].value ? 'KALAH' : 'MENANG';
+          } else if (player == input[1].value) {
+            hasil.innerHTML = computer == input[2].value ? 'KALAH' : 'MENANG';
+          } else if (player == input[2].value) {
+            hasil.innerHTML = computer == input[0].value ? 'KALAH' : 'MENANG';
+          }
+          if (hasil.innerHTML == 'KALAH') {
+            hasil.style.color = 'red';
+          } else if (hasil.innerHTML == 'MENANG') {
+            hasil.style.color = 'lime';
+          } else {
+            hasil.style.color = 'aqua';
+          }
+          //hasil
+          catatanHasil.innerHTML = 'Kamu memilih : ' + '<span style="color:gold;">' + player + '</span>' + ' dan Komputer memilih : ' + '<span style="color:gold;">' + computer + '.</span>' + '<br> Maka kamu :';
+        });
+      }
+
+      // time
+
+      const time = document.getElementById('time');
+      function setTime() {
+        const showTime = new Date();
+        time.innerHTML = 'Sekarang pukul : ' + showTime.toLocaleTimeString();
+        setInterval(setTime, 1000);
+      }
+    </script>
+  </body>
+</html>
